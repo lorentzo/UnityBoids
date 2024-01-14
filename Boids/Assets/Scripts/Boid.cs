@@ -23,17 +23,17 @@ public class Boid : MonoBehaviour
         velocity = transform.forward * boidSettings.minSpeed;
     }
 
-    public void UpdateBoid(Vector3 avgCenter)
+    public void UpdateBoid(Vector3 avgBoidCenter, bool moveToTarget)
     {
         // Accumulating vector which takes in account rules of boid system.
         // Used for computing velocity and thus position vectors.
         Vector3 acceleration = Vector3.zero;
 
         // Enable moving boids toward target.
-        if (target != null)
+        if (target != null && moveToTarget)
         {
             Vector3 targetVector = target.transform.position - position;
-            acceleration = Vector3.ClampMagnitude(targetVector.normalized * boidSettings.maxSpeed - velocity, boidSettings.maxAvoidanceForce) * boidSettings.targetWeight;
+            acceleration += Vector3.ClampMagnitude(targetVector.normalized * boidSettings.maxSpeed - velocity, boidSettings.maxAvoidanceForce) * boidSettings.targetWeight;
         }
 
         // Evade collisions with other objects but not other boids!
@@ -56,14 +56,16 @@ public class Boid : MonoBehaviour
         acceleration += Vector3.ClampMagnitude(clearDirection * boidSettings.maxSpeed - velocity, boidSettings.maxAvoidanceForce) * boidSettings.boidAvoidanceWeight;
 
         // Don't go too far from boid crowd.
-        Vector3 getCloserDirection = avgCenter - transform.position;
+        Vector3 getCloserDirection = avgBoidCenter - transform.position;
         acceleration += Vector3.ClampMagnitude(getCloserDirection.normalized * boidSettings.maxSpeed - velocity, boidSettings.maxAvoidanceForce) * boidSettings.boidGetCloserWeight;
 
         // Compute velocity, position and orientation from accumulated acceleration.
         velocity += acceleration * Time.deltaTime;
         float speed = velocity.magnitude;
         Vector3 dir = velocity / speed;
-        transform.position += velocity * boidSettings.minSpeed * Time.deltaTime;
+        speed = Mathf.Clamp(speed, boidSettings.minSpeed, boidSettings.maxSpeed);
+
+        transform.position += dir * speed * Time.deltaTime;
         transform.forward = dir;
         position = transform.position;
         forward = transform.forward;
@@ -88,14 +90,21 @@ public class Boid : MonoBehaviour
         RaycastHit hitContext;
         for (int i = 0; i < nTestPoints; i++)
         {
-            Vector3 testPoint = SamplePointOnUnitSphere();
-            Vector3 potentialDirection = testPoint - transform.position;
+            Vector3 potentialDirection;
+            while (true)
+            {
+                potentialDirection = Random.onUnitSphere;
+                if (Mathf.Acos(Vector3.Dot(potentialDirection,transform.forward)) < 0.3f)
+                {
+                    break;
+                }
+            }
+
             if (!isObstacleDirection(transform.position, potentialDirection.normalized, out hitContext))
             {
                 nonObstacleDirection = potentialDirection.normalized;
                 //Debug.DrawRay(transform.position, potentialDirection.normalized * hitContext.distance, Color.green);
                 //Gizmos.DrawRay(transform.position, potentialDirection.normalized * hitContext.distance);
-                Debug.Log(nonObstacleDirection);
                 break;
             }
             else

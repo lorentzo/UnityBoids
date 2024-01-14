@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042cb3dc7d07d4959b27b630eeb9b341, type: 3}
   m_Name: BoidSettings
   m_EditorClassIdentifier: 
-  minSpeed: 2
-  maxSpeed: 3
+  minSpeed: 5
+  maxSpeed: 15
+  targetWeight: 7
+  objectAvoidanceWeight: 10
+  boidAvoidanceWeight: 3
+  boidGetCloserWeight: 1
+  radiusForKeepingDistance: 2
+  maxAvoidanceForce: 3

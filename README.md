@@ -1,5 +1,7 @@
 # Unity Boids
 
+WIP!
+
 Unity 2022.3.13f1 Vulkan
 
 Boids Simulation In Unity
@@ -17,3 +19,11 @@ Inspired by:
 * Avoiding collisions with other objects
 * Keeping distance between boids
 * Not going too far from boid center
+
+### Gallery
+
+![](RepoData/1.png)
+
+![](RepoData/2.png)
+
+![](RepoData/3.png)
