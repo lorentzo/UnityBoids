@@ -47,7 +47,7 @@ public class BoidManage : MonoBehaviour
         // Update boids.
         for (int i = 0; i < boids.Length; i++)
         {
-            boids[i].UpdateBoid(avgBoidCenter, false);
+            boids[i].UpdateBoid(avgBoidCenter, true);
         }
     }
 }
