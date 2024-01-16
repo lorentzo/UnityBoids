@@ -15,17 +15,26 @@ Inspired by:
 * Boid prefab: 3D object (mesh and material) with position, orientation and velocity
 * Multiple boid spawning points
 * Boid manager for moving boids to target
+* Interactive target
 * Avoiding collisions with other boids
 * Avoiding collisions with other objects
 * Keeping distance between boids
 * Not going too far from boid center
+* Environment
+* Camera controller
 
 ### Gallery
-
-![](RepoData/1.png)
 
 ![](RepoData/2.png)
 
 ![](RepoData/3.png)
 
 ![](RepoData/4.png)
+
+![](RepoData/5.png)
+
+![](RepoData/6.png)
+
+![](RepoData/7.png)
+
+![](RepoData/8.png)
