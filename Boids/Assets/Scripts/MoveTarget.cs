@@ -4,48 +4,67 @@ using UnityEngine;
 
 public class MoveTarget : MonoBehaviour
 {
-    bool moveTarget;
+    public float movementCircleRadius = 40.0f;
+    public float movementCircleRadiusDelta = 1.0f;
+    public float theta = 0.0f;
+    public float thetaDelta = 0.1f;
+
+    void Awake()
+    {
+        // Compute 
+        // Center of circle is always world (0,0,0).
+        /*
+        float theta = Mathf.Atan2(transform.position.z, transform.position.x);
+        if (transform.position.z > 0 && transform.position.x > 0)
+        {
+            theta += Mathf.PI;
+        }
+        */
+        float x  = movementCircleRadius * Mathf.Cos(theta);
+        float z  = movementCircleRadius * Mathf.Sin(theta);
+        float y = 0.0f;
+        transform.position = new Vector3(x,y,z);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        moveTarget = false;
+
     }
 
     // Update is called once per frame
     void Update()
-    {
-        if (Input.GetKey("space"))
+    {            
+        if (Input.GetKey("a"))
         {
-            moveTarget = true;
+            theta = theta + thetaDelta;
         }
-
-        if (moveTarget)
+        if (Input.GetKey("d"))
         {
-            if (Input.GetKey("space"))
-            {
-                moveTarget = false;
-            }
-
-            if (Input.GetAxis("Mouse X") > 0.0f)
-            {
-                transform.localPosition += Vector3.forward * 1;
-            }
-            if (Input.GetAxis("Mouse X") < 0.0f)
-            {
-                transform.localPosition += Vector3.back * 1;
-            }
-            if (Input.GetAxis("Mouse Y") > 0.0f)
-            {
-                transform.localPosition += Vector3.up * 1;
-            }
-            if (Input.GetAxis("Mouse Y") < 0.0f)
-            {
-                transform.localPosition += Vector3.down * 1;
-            }
+            theta = theta - thetaDelta;
         }
-
-        
-        
+        if (Input.GetKey("w"))
+        {
+            movementCircleRadius = movementCircleRadius + movementCircleRadiusDelta;
+            if (movementCircleRadius > 300.0f) movementCircleRadius = 300.0f;
+        }
+        if (Input.GetKey("s"))
+        {
+            movementCircleRadius = movementCircleRadius - movementCircleRadiusDelta;
+            if (movementCircleRadius < 0.0f) movementCircleRadius = 0.0f;
+        }
+        float x  = movementCircleRadius * Mathf.Cos(theta);
+        float z  = movementCircleRadius * Mathf.Sin(theta);
+        float y = 0.0f;
+        transform.position = new Vector3(x,y,z);
     }
+
+    void move_on_circle (Transform transform, float r)
+    {
+        float x  = r * Mathf.Cos(Time.time + Mathf.PI);
+        float z  = r * Mathf.Sin(Time.time + Mathf.PI);
+        float y = 0.0f;
+        transform.position = new Vector3(x,y,z);
+    }
+        
 }

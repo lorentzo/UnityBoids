@@ -25,10 +25,6 @@ Inspired by:
 
 ### Gallery
 
-![](RepoData/2.png)
-
-![](RepoData/3.png)
-
 ![](RepoData/4.png)
 
 ![](RepoData/5.png)
@@ -38,3 +34,7 @@ Inspired by:
 ![](RepoData/7.png)
 
 ![](RepoData/8.png)
+
+![](RepoData/9.png)
+
+![](RepoData/10.png)
