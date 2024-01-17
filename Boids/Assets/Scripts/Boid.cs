@@ -41,8 +41,6 @@ public class Boid : MonoBehaviour
         RaycastHit hitContext;
         if(isObstacleDirection(transform.position, transform.forward, out hitContext))
         {
-
-            Debug.Log("Heading for collision!" + hitContext.collider.name);
             Vector3 nonObstacleDirection = computeNonObstacleDirection();
             acceleration += Vector3.ClampMagnitude(nonObstacleDirection * boidSettings.maxSpeed - velocity, boidSettings.maxAvoidanceForce) * boidSettings.objectAvoidanceWeight;
         }

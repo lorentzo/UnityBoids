@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MoveTarget : MonoBehaviour
 {
-    public float movementCircleRadius = 40.0f;
+    public float movementCircleRadius = 60.0f;
     public float movementCircleRadiusDelta = 1.0f;
     public float theta = 0.0f;
     public float thetaDelta = 0.1f;
