@@ -20,7 +20,7 @@ public class Boid : MonoBehaviour
         // Initial position and orientation (forward) was set by BoidSpawn.
         position = transform.position;
         forward = transform.forward;
-        velocity = transform.forward * boidSettings.minSpeed;
+        velocity = transform.forward * Random.Range(boidSettings.minSpeed, boidSettings.maxSpeed);
     }
 
     public void UpdateBoid(Vector3 avgBoidCenter, bool moveToTarget)
