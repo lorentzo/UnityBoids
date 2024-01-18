@@ -19,11 +19,12 @@ public class MoveTarget : MonoBehaviour
         {
             theta += Mathf.PI;
         }
-        */
+        
         float x  = movementCircleRadius * Mathf.Cos(theta);
         float z  = movementCircleRadius * Mathf.Sin(theta);
         float y = 0.0f;
         transform.position = new Vector3(x,y,z);
+        */
     }
 
     // Start is called before the first frame update
@@ -35,6 +36,15 @@ public class MoveTarget : MonoBehaviour
     // Update is called once per frame
     void Update()
     {            
+        float sensitivity = 15.0f;
+        // The value is in the range -1 to 1
+        float xMovement = Input.GetAxis("Vertical") * sensitivity * Time.deltaTime; // Mouse X
+        float zMovement = Input.GetAxis("Horizontal") * sensitivity * Time.deltaTime; // Mouse Y
+        transform.Translate(-zMovement, 0, -xMovement);
+    }
+
+    void movementOnCircle()
+    {
         if (Input.GetKey("a"))
         {
             theta = theta + thetaDelta;
